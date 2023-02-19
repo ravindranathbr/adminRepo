@@ -1,0 +1,45 @@
+## Docker commands
+
+    1  docker pull ubuntu:18.04
+    2  docker images
+    3  docker run -it --network=host ubuntu:18.04 
+    5  docker ps
+    7  docker commit 3d32252115a0 ilab247/test543:0.1
+   10  docker login
+	(ilab247 / <<password>> )
+   12  docker push ilab247/test543:0.1
+   13  (( docker run -p 0.0.0.0:8005:8005 -it --network=host ubuntu:18.04 ))
+       
+	docker exec -it <<running container from docker ps) /bin/bash
+
+
+## https://jumpcloud.com/blog/how-to-create-a-new-sudo-user-manage-sudo-access-on-ubuntu-20-04
+docker run -it --network=host ubuntu:18.04 
+
+adduser ilab247user
+cat /etc/passwd | grep ilab247user
+usermod -aG sudo ilab247user
+apt-get update && apt-get sudo
+------------------
+su - ilab247user
+sudo apt-get update && sudo apt-get install -yq curl wget jq vim
+
+
+sudo vi /etc/sudoers.d/ilab247user    (( and add this line)
+ilab247user ALL=(root) NOPASSWD:ALL
+
+----------------------------------------
+
+curl -fsSL https://code-server.dev/install.sh | sh
+
+-------------------------------------------
+mkdir /home/ilab247user/data
+mkdir /home/ilab247user/data/extensionsCache
+
+code-server --bind-addr 0.0.0.0:8005 --auth none --user-data-dir /home/ilab247user/data --extensions-dir /home/ilab247user/data/extensionsCache --install-extension ms-toolsai.jupyter --install-extension ms-python.python
+code-server --bind-addr 0.0.0.0:8005 --auth none --user-data-dir /home/ilab247user/data --extensions-dir /home/ilab247user/data/extensionsCache
+
+
+
+
+
