@@ -19,7 +19,7 @@ docker run -it --network=host ubuntu:18.04
 adduser ilab247user
 cat /etc/passwd | grep ilab247user
 usermod -aG sudo ilab247user
-apt-get update && apt-get sudo
+apt-get update && apt-get install sudo
 ------------------
 su - ilab247user
 sudo apt-get update && sudo apt-get install -yq curl wget jq vim
@@ -35,6 +35,7 @@ curl -fsSL https://code-server.dev/install.sh | sh
 -------------------------------------------
 mkdir /home/ilab247user/data
 mkdir /home/ilab247user/data/extensionsCache
+sudo chmod +777 /home/ilab247user
 
 code-server --bind-addr 0.0.0.0:8005 --auth none --user-data-dir /home/ilab247user/data --extensions-dir /home/ilab247user/data/extensionsCache --install-extension ms-toolsai.jupyter --install-extension ms-python.python
 code-server --bind-addr 0.0.0.0:8005 --auth none --user-data-dir /home/ilab247user/data --extensions-dir /home/ilab247user/data/extensionsCache
