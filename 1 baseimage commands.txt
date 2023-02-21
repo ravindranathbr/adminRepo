@@ -1,0 +1,41 @@
+
+## https://jumpcloud.com/blog/how-to-create-a-new-sudo-user-manage-sudo-access-on-ubuntu-20-04
+
+mkdir /home/cloud_user/workspaces
+chmod +777 /home/cloud_user/workspaces
+docker run -it --network=host -v /home/cloud_user/workspaces:/workspaces ubuntu:20.04 
+
+adduser ilab247user   (<password>, test, test, test, test, test, Y)
+cat /etc/passwd | grep ilab247user
+usermod -aG sudo ilab247user
+apt-get update && apt-get install sudo
+------------------
+su - ilab247user  
+sudo apt-get update && sudo apt-get install -yq curl wget jq vim     (provide password)
+
+
+sudo vi /etc/sudoers.d/ilab247user    (( and add this line)
+ilab247user ALL=(root) NOPASSWD:ALL
+
+# install code-server ----------------------------------------
+
+curl -fsSL https://code-server.dev/install.sh | sh
+
+## -------------------------------------------
+
+mkdir /home/ilab247user/data
+mkdir /home/ilab247user/extensionsCache
+sudo chmod +777 /home/ilab247user
+
+cd /workspaces
+code-server --bind-addr 0.0.0.0:8005 --auth none --user-data-dir /home/ilab247user/data --extensions-dir /home/ilab247user/extensionsCache
+
+# base image completed
+
+
+
+### code-server --bind-addr 0.0.0.0:8005 --auth none --user-data-dir /home/ilab247user/data --extensions-dir /home/ilab247user/extensionsCache --install-extension ms-toolsai.jupyter --install-extension ms-python.python
+
+
+
+

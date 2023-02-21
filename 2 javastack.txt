@@ -1,0 +1,34 @@
+# 1. take base image ----------------------------------------------------
+docker run -it --network=host -v /home/cloud_user/workspaces:/workspaces ilab247/baseimage:0.02
+
+# 2. install software ---------------------------------------------------
+
+su - ilab247user
+apt-cache search openjdk | grep openjdk
+sudo apt-get install openjdk-11-jdk          (6.Asia, 44.Kolkota )
+sudo apt-get install gradle
+
+# 3. <Run Code server >----------------------------------------------------
+cd /workspaces
+code-server --bind-addr 0.0.0.0:8005 --auth none --user-data-dir /home/ilab247user/data --extensions-dir /home/ilab247user/extensionsCache
+
+# 4. << testing : code-server and java working ? >> -----------------------
+Open terminal from VS Code Browser and test 
+java -version
+gradle -v
+
+# 5. <Packaging> then from a different terminal  ---------------------------
+docker ps
+docker commit <container> ilab247/javastack:0.01
+
+# --java stack completed ---------------------------------------------------
+
+
+# Github codespaces : jdk version is 17 :
+# @ iLab247 ➜ /workspaces/codespaces-react (main) $ java -version
+# openjdk version "17.0.6" 2023-01-17 LTS
+# OpenJDK Runtime Environment Microsoft-7209853 (build 17.0.6+10-LTS)
+# OpenJDK 64-Bit Server VM Microsoft-7209853 (build 17.0.6+10-LTS, mixed mode, sharing)
+
+# https://www.linuxcapable.com/how-to-install-openjdk-17-on-ubuntu-linux/
+# apt-cache search openjdk | grep openjdk-17

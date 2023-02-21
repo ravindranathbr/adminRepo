@@ -1,0 +1,36 @@
+# 1. take base image ----------------------------------------------------
+docker run -it --network=host -v /home/cloud_user/workspaces:/workspaces ilab247/baseimage:0.02
+
+# 2. install software ---------------------------------------------------
+
+## install node & npm
+
+su - ilab247user
+curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# 3. <Run Code server >----------------------------------------------------
+cd /workspaces
+code-server --bind-addr 0.0.0.0:8005 --auth none --user-data-dir /home/ilab247user/data --extensions-dir /home/ilab247user/extensionsCache
+
+# 4. << testing : code-server and java working ? >> -----------------------
+Open terminal from VS Code Browser and test 
+
+node -v
+npm -v
+
+# 5. <Packaging> then from a different terminal  ---------------------------
+docker ps
+docker commit <container> ilab247/fullstack:0.01
+
+# --------------------------------------------------------------------------
+
+
+
+## Run `sudo apt-get install -y nodejs` to install Node.js 19.x and npm
+## You may also need development tools to build native addons:
+     sudo apt-get install gcc g++ make
+## To install the Yarn package manager, run:
+     curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+     echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+     sudo apt-get update && sudo apt-get install yarn

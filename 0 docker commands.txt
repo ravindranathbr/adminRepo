@@ -1,0 +1,14 @@
+## Docker commands
+
+    1  docker pull ubuntu:18.04 // 20.04
+    2  docker images
+    3  docker run -it --network=host ubuntu:18.04  //20.04
+    5  docker ps
+    7  docker commit 3d32252115a0 ilab247/test543:0.1
+   10  docker login
+	(ilab247 / <<password>> )
+   12  docker push ilab247/test543:0.1
+   13  (( docker run -p 0.0.0.0:8005:8005 -it --network=host ubuntu:18.04 ))
+       
+	docker exec -it <<running container from docker ps) /bin/bash
+
