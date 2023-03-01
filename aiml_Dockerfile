@@ -1,0 +1,22 @@
+FROM ilab247/baseimage:0.02
+
+USER ilab247user
+
+RUN cd /tmp && wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    chmod +755 Miniconda3-latest-Linux-x86_64.sh && \
+    ./Miniconda3-latest-Linux-x86_64.sh -bfp ~/conda && \
+    rm -f Miniconda3-latest-Linux-x86_64.sh && \
+    ~/conda/bin/conda clean -afy && \
+    echo ". ~/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc 
+
+ENV PATH ~/conda/bin:$PATH
+
+RUN ~/conda/bin/conda install -y -c conda-forge jupyterlab
+
+WORKDIR /workspaces
+
+EXPOSE 8002
+
+CMD ["/home/ilab247user/conda/bin/jupyter-lab", "--ip=0.0.0.0", "--port=8002"]
+
